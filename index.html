@@ -187,7 +187,7 @@ function CountryChange() {
 
     </div> <!-- /container -->
  </div><!--"black"--> 
- <script>
+ <!--script>
 /*var searchForm = document.getElementById('search');*/
 /*var seeSearchForm = document.getElementById('search');*/
 input=document.getElementsByTagName("input")[0]
@@ -247,7 +247,7 @@ onload=firstSearch
 input.oninput=firstSearch
 input.focus()
 onkeydown=function(){input.focus()}
-</script>
+</script-->
   
     
   <script>
@@ -347,8 +347,301 @@ function addField() {
  // Возвращаем false, чтобы не было перехода по сслыке
  return false;
 }
-</script> 
-    <script type="text/javascript">
+</script>
+      
+      
+      
+      
+      
+      
+      
+      
+      <script>
+      document.getElementById('myForm').addEventListener('submit', saveBookmark);
+// Save Bookmark
+function saveBookmark(e){
+  // Get form values
+  let sName =document.getElementById('sName').value;
+  let sPhone =document.getElementById('sPhone').value;
+  let sMail =document.getElementById('sEmail').value;
+  let sUrl =document.getElementById('sUrl').value;
+
+  if(!validateForm(sName, sPhone, sMail, sUrl)){
+    return false;
+  }/*******************************************************************empty form exeption*/
+
+/*let expression = +~%;
+let regex = new RegExp(expression);
+if(!sName, sPhone, sMail, sUrl.match(regex)){
+alert('Please use a valid data!') ;
+}*/
+
+  let bookmark = {
+    name: sName,
+    phone: sPhone,
+    mail: sMail,
+    url: sUrl
+  }
+
+  /*
+    // Local Storage Test
+    localStorage.setItem('test', 'Hello World');
+    console.log(localStorage.getItem('test'));
+    localStorage.removeItem('test');
+    console.log(localStorage.getItem('test'));
+  */
+
+  // Test if bookmarks is null
+  if(localStorage.getItem('bookmarks') === null){
+    // Init array
+    let bookmarks = [];
+    // Add to array
+    bookmarks.push(bookmark);
+    // Set to localStorage
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  } else {
+    // Get bookmarks from localStorage
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    // Add bookmark to array
+    bookmarks.push(bookmark);
+    // Re-set back to localStorage
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  }
+
+  // Clear form
+  document.getElementById('myForm').reset();
+
+  // Re-fetch bookmarks
+  fetchBookmarks();
+
+  // Prevent form from submitting
+  e.preventDefault();
+}
+
+// Delete bookmark
+function deleteBookmark(phone, mail, url){
+  // Get bookmarks from localStorage
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  // Loop throught bookmarks
+  for(let i =0;i < bookmarks.length;i++){
+    if(bookmarks[i].url == url || bookmarks[i].phone == phone || bookmarks[i].ail == mail){
+      // Remove from array
+      bookmarks.splice(i, 1);
+    }
+  }
+  // Re-set back to localStorage
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+  // Re-fetch bookmarks
+  fetchBookmarks();
+}
+/********EDIT???????????????????????????????*************************************************************???***/
+// Delete bookmark
+function editBookmark(name, phone, mail, url){
+  // Get bookmarks from localStorage
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  // Loop throught bookmarks
+  for(let i =0;i < bookmarks.length;i++){
+    if(bookmarks[i].name == name || bookmarks[i].url == url || bookmarks[i].phone == phone || bookmarks[i].ail == mail){
+      // Remove from array
+      bookmarks.splice(i, 1);
+    }
+  }
+  // Re-set back to localStorage
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+
+  
+/********EDIT???????????????????????????????*************************************************************???***/
+  document.getElementById('myForm').addEventListener('submit', saveBookmark);
+function saveBookmark(e){
+  // Get form values
+  let sName =document.getElementById('sName').value;
+  let sPhone =document.getElementById('sPhone').value;
+  let sMail =document.getElementById('sEmail').value;
+  let sUrl =document.getElementById('sUrl').value;
+
+  if(!validateForm(sName, sPhone, sMail, sUrl)){
+    return false;
+  }
+
+  let bookmark = {
+    name: sName,
+    phone: sPhone,
+    mail: sMail,
+    url: sUrl
+  }
+
+  /*
+    // Local Storage Test
+    localStorage.setItem('test', 'Hello World');
+    console.log(localStorage.getItem('test'));
+    localStorage.removeItem('test');
+    console.log(localStorage.getItem('test'));
+  */
+
+  // Test if bookmarks is null
+  if(localStorage.getItem('bookmarks') === null){
+    // Init array
+    let bookmarks = [];
+    // Add to array
+    bookmarks.push(bookmark);
+    // Set to localStorage
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  } else {
+    // Get bookmarks from localStorage
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    // Add bookmark to array
+    bookmarks.push(bookmark);
+    // Re-set back to localStorage
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  }
+
+  // Clear form
+  document.getElementById('myForm').reset();
+/**************************************************************************???**/
+  // Re-fetch bookmarks
+  fetchBookmarks();
+}
+/********EDIT???????????????????????????????*************************************************************???***/
+
+/*var searchForm = document.getElementById('search');*/
+/*var seeSearchForm = document.getElementById('search');*/
+input=document.getElementsByTagName("input")[0]
+
+d=document.getElementsByTagName("div")[0]
+
+// Fetch bookmarks
+search=function fetchBookmarks(){
+  // Get bookmarks from localStorage
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  // Get output id
+  let bookmarksResults = document.getElementById('bookmarksResults');
+bookmarksResults = [];
+  // Build output
+  bookmarksResults.innerHTML = '';
+  for(let i = 0; i < bookmarks.length; i++){
+    let name = bookmarks[i].name;
+    let phone = bookmarks[i].phone;
+    /*------------------------------------------look more*/
+    let mail = bookmarks[i].mail;
+    let url = bookmarks[i].url;
+ 
+    bookmarksResults.innerHTML += '<div class="well">'+
+                                  '<h3>'+name+phone+
+                                  //---------------------------------------------------------------more
+                                  ' <a class="btn btn-default" target="_blank" href="'+name+phone+mail+url+'">More</a> ' +
+                                  ' <a class="btn btn-default" target="_blank" href="'+url+'">Visit</a> ' +
+                                  ' <a target="_blank" onclick="editBookmark(\''+name+phone+mail+url+'\')" class="btn btn-danger" href="#">Edit</a> ' +
+                                  ' <a onclick="deleteBookmark(\''+phone+mail+url+'\')" class="btn btn-danger" href="#">Delete</a> ' +
+                                  '</h3>'+
+                                  '</div>';
+  }
+return bookmarksResults;
+}
+
+
+ 
+
+/*input.style.width="100%"*/
+
+ 
+
+ 
+
+/*base=[ ' Служебный номер АТС 35 Отдел автоматизации систем управления предприятием АТС 7700 48-500',
+
+ ' Дежурные водители водители 10 Транспортный цех бокс для автомобилей № 3 1876 68-501',
+
+ ' Петрова Лидия Николаевна Ведущий товаровед 25 Отдел материально-технического обеспечения №3- общий кабинет товароведов 6733 83-782 7-90-06',
+
+ 
+
+]*/
+
+ 
+
+/*search=function(pattern){
+
+var out=[]
+
+var re=new RegExp(pattern, "i")
+
+for(var i=0; i<base.length; i++){
+
+if(base[i].match(re)) {
+
+base[i]=base[i].replace(/((\d{4} \d{2}-\d{3})|(\d{4} \d{2}-\d{3} \d{1}-\d{2}-\d{2}))$/, "<b>$1</b>")
+
+out.push(base[i])
+
+  }
+
+ 
+
+ }
+
+return out
+
+}*/
+
+ 
+
+firstSearch=function(){
+
+d.innerHTML=""
+
+input.style.color=null
+
+let bookmarksResults=search(input.value)
+
+if(bookmarksResults.length<1) return secondSearch()
+
+let str=bookmarksResults.join("<br><br>")
+
+d.innerHTML=str
+
+}
+
+ 
+
+secondSearch=function(){
+
+input.style.color="red"
+
+d.innerHTML="I don't know <b>"+input.value+"</b>"
+
+}
+
+onload=firstSearch
+
+input.oninput=firstSearch
+
+input.focus()
+
+onkeydown=function(){input.focus()}
+
+// Validate Form
+function validateForm(sName, sPhone, sMail, sUrl){
+  if(!sName || !sPhone ||!sMail || !sUrl){
+    alert('Please fill in the form');
+    return false;
+  }
+
+  let expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+  let regex = new RegExp(expression);
+
+  if(!sUrl.match(regex) || !sPhone.match(regex) ||!sMail.match(regex)){
+    alert('Please use a valid data!');
+    return false;
+  }
+
+  return true;
+}
+
+   
+      </script>
+    <!--script type="text/javascript">
 
 // Listen for form submit
 document.getElementById('myForm').addEventListener('submit', saveBookmark);
@@ -549,7 +842,7 @@ function validateForm(sName, sPhone, sMail, sUrl){
   }
   return true;
 }
-    </script>
+    </script-->
 <style type="text/css">
 .marketing,
  {
