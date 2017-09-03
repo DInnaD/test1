@@ -71,10 +71,10 @@ function CountryChange() {
 
  
 
- <div class="container"  style="position: relative;">
+ 
 
 <form method="GET" action="#">
- <span><div id="parentId" style= "display: inline-block;">
+ <span><div id="parentId" style= "display: inline-block; position: relative;">
  <div>
  <a onclick="return addField()" href="#" class="btn btn-circle">
     <i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -85,16 +85,7 @@ function CountryChange() {
  <span><input class="btn btn-circle" type="submit"  value="GO!" /><span>
 </form>
 
-<!--*******************+code +add to span***********************************************************myFavorite-->
-
-
-  <span><input id="search" type="text" name="search" placeholder="Search.."></input></span> 
-    <span> <button onclick="talk()" style="background: none; border:none; padding-top: 3px;"><i class="fa fa-microphone" aria-hidden="true" ></i></button></span>
  
-    <span><button onclick="stop()" style="background: none; border:none; padding-top: 3px;"><i class="fa fa-microphone-slash" aria-hidden="true" ></i></button></span><span><a href="#" id="toggler" class="btn btn-circle" title="AddNew" style="color: #42DCA3;"><i class="fa fa-plus" aria-hidden="true" ></i></a></span><!--*******************+code +add to span***********************************************************myFavorite-->
-<!--span><input type="submit" value="Submit"  /></span-->
-   
-</div>   
 <hr>
         
   
@@ -145,7 +136,7 @@ function CountryChange() {
 
         
         <!--a class="toggler" href="#">add new</a-->
-        <div id="navigation">
+        <!--div id="navigation">
      <ul class="nav-list">
       <li  id="js-show-all" class="btn btn-circle">
     <i class="fa fa-users" aria-hidden="true"></i></li>
@@ -155,8 +146,17 @@ function CountryChange() {
     <i class="fa fa-plus" aria-hidden="true"></i></a></li>
 
       </ul>
-  </div>
-  
+  </div-->
+  <!--*******************+code +add to span***********************************************************myFavorite-->
+
+<div class="container"  style="position: relative;">
+  <span><input id="search" type="text" name="search" placeholder="Search.."></input></span> 
+    <span> <button onclick="talk()" style="background: none; border:none; padding-top: 3px;"><i class="fa fa-microphone" aria-hidden="true" ></i></button></span>
+ 
+    <span><button onclick="stop()" style="background: none; border:none; padding-top: 3px;"><i class="fa fa-microphone-slash" aria-hidden="true" ></i></button></span><span><a href="#" id="toggler" class="btn btn-circle" title="AddNew" style="color: #42DCA3;"><i class="fa fa-plus" aria-hidden="true" ></i></a></span><!--*******************+code +add to span***********************************************************myFavorite-->
+<!--span><input type="submit" value="Submit"  /></span-->
+   
+</div>  
     <!--button onclick="speech ()">Слушать</button-->
         
     <!--/div--><!--a class="toggle" href="#">add new</a-->
